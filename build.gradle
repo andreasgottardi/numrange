@@ -1,0 +1,36 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.2.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+group = 'goa.systems'
+version = '0.0.1'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	/* SpringBoot */
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	
+	/* Gson */
+	implementation 'com.google.code.gson:gson:2.8.6'
+	
+	/* Logging */
+	implementation 'org.slf4j:slf4j-api:1.7.30'
+	testRuntimeOnly 'ch.qos.logback:logback-core:1.2.3'
+	testRuntimeOnly 'ch.qos.logback:logback-classic:1.2.3'
+}
+
+test {
+	useJUnitPlatform()
+}
