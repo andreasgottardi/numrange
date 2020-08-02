@@ -1,5 +1,6 @@
 package goa.systems.numrange;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.UUID;
@@ -7,6 +8,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.google.gson.Gson;
@@ -16,8 +18,13 @@ class NumberRangeTests {
 
 	private static Logger logger = LoggerFactory.getLogger(NumberRangeTests.class);
 
+	@Value("${goa.systems.numrange.datadir}")
+	private String datadir;
+
 	@Test
 	void testNumberRangeInit() {
+
+		assertEquals("datadir", datadir);
 
 		NumberRange nr = new NumberRange();
 		nr.setCurrentnumber(0);

@@ -1,0 +1,11 @@
+{
+	"groups": [],
+	"properties": [
+	    {
+	        "name": "goa.systems.numrange.datadir",
+	        "type": "java.lang.String",
+	        "sourceType": "Path to the data directory where the number range definition files reside."
+	    }
+    ],
+    "hints": []
+}
