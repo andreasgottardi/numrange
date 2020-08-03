@@ -11,13 +11,22 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.annotations.Expose;
+
 public class NumberRange {
 
 	private static Logger logger = LoggerFactory.getLogger(NumberRange.class);
 
+	@Expose(serialize = true, deserialize = true)
 	private String uid;
+
+	@Expose(serialize = true, deserialize = true)
 	private int currentnumber;
+
+	@Expose(serialize = true, deserialize = true)
 	private List<String> accesstokens;
+
+	private File file;
 
 	public NumberRange() {
 		this(UUID.randomUUID().toString(), 0, new ArrayList<>());
@@ -58,14 +67,27 @@ public class NumberRange {
 		this.accesstokens.add(accesstoken);
 	}
 
-	public void store(File file) {
-		if (file != null && file.exists() && file.isDirectory()) {
-			File jsonfile = new File(file, String.format("%s.json", uid));
-			try (FileOutputStream fos = new FileOutputStream(jsonfile)) {
+	public File getFile() {
+		return this.file;
+	}
+
+	public void setFile(File numrangedef) {
+		this.file = numrangedef;
+	}
+
+	public void store() {
+		if (this.file != null) {
+			try (FileOutputStream fos = new FileOutputStream(this.file)) {
 				fos.write(GsonFactory.getGson().toJson(this).getBytes(StandardCharsets.UTF_8));
 			} catch (IOException e) {
 				logger.error("Error storing number range.", e);
 			}
 		}
+	}
+
+	public synchronized int getNewNumber() {
+		this.currentnumber++;
+		store();
+		return this.currentnumber;
 	}
 }

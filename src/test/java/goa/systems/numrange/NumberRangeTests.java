@@ -2,6 +2,7 @@ package goa.systems.numrange;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.UUID;
@@ -24,21 +25,19 @@ class NumberRangeTests {
 
 	@Test
 	void testNumberRangeInit() {
-
 		assertEquals("datadir", datadir);
-
 		NumberRange nr = new NumberRange();
 		nr.setCurrentnumber(0);
 		nr.addAccesstokens(UUID.randomUUID().toString());
 		nr.addAccesstokens(UUID.randomUUID().toString());
 		nr.addAccesstokens(UUID.randomUUID().toString());
-
 		Gson gson = GsonFactory.getGson();
 		String json = gson.toJson(nr);
 		assertNotNull(json);
-
+		File jsonfile = new File(this.datadir, String.format("%s.json", nr.getUid()));
+		nr.setFile(jsonfile);
 		logger.info("Json for id {} generated: {}", nr.getUid(), json);
-
-		nr.store(new File(datadir));
+		nr.store();
+		assertTrue(jsonfile.exists());
 	}
 }

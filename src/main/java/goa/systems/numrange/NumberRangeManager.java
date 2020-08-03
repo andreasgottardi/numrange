@@ -24,7 +24,7 @@ public class NumberRangeManager {
 	private static NumberRangeManager mthis = null;
 	private boolean isconfigured = false;
 
-	Map<String, NumberRange> numberranges;
+	private Map<String, NumberRange> numberranges;
 	private File datadir;
 
 	private NumberRangeManager() {
@@ -34,18 +34,27 @@ public class NumberRangeManager {
 
 	public void configure(String datadir) {
 		this.datadir = new File(datadir);
+		if (!this.datadir.exists()) {
+			this.datadir.mkdirs();
+		}
 		for (File numrangedef : this.datadir.listFiles()) {
 			Matcher m = Pattern.compile("(.*)\\.json").matcher(numrangedef.getName());
 			if (m != null && m.find()) {
 				try (FileInputStream fis = new FileInputStream(numrangedef);
 						InputStreamReader isr = new InputStreamReader(fis);) {
-					numberranges.put(m.group(1), GsonFactory.getGson().fromJson(isr, NumberRange.class));
+					NumberRange nr = GsonFactory.getGson().fromJson(isr, NumberRange.class);
+					nr.setFile(numrangedef);
+					numberranges.put(m.group(1), nr);
 				} catch (JsonSyntaxException | JsonIOException | IOException e) {
 					logger.error("Error loading number range from file {}", numrangedef.getAbsolutePath(), e);
 				}
 			}
 		}
 		this.isconfigured = true;
+	}
+
+	public NumberRange getNumberRange(String uid) {
+		return this.numberranges.get(uid);
 	}
 
 	public static NumberRangeManager getInstance() {

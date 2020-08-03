@@ -12,10 +12,11 @@ public class NumrangeController {
 
 	private static Logger logger = LoggerFactory.getLogger(NumrangeController.class);
 
-	@GetMapping(value = "/getnumber/{uid}")
+	@GetMapping(value = "/getnewnumber/{uid}")
 	@ResponseBody
-	public String getNumber(@PathVariable("uid") String uid) {
-		logger.info("Number from range {} requested.", uid);
-		return "4711";
+	public String getnewnumber(@PathVariable("uid") String uid) {
+		logger.debug("Number from range {} requested.", uid);
+		NumberRange nr = NumberRangeManager.getInstance().getNumberRange(uid);
+		return String.format("%d", nr.getNewNumber());
 	}
 }

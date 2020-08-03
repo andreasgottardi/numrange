@@ -17,7 +17,7 @@ public class GsonFactory {
 
 	public static Gson getGson() {
 		if (gson == null) {
-			gson = new GsonBuilder().create();
+			gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			logger.debug("Gson instance created.");
 		}
 		return gson;
