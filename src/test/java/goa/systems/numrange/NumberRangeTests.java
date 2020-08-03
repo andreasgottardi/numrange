@@ -3,6 +3,7 @@ package goa.systems.numrange;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.io.File;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,8 @@ class NumberRangeTests {
 		String json = gson.toJson(nr);
 		assertNotNull(json);
 
-		logger.info("Json generated: {}", json);
+		logger.info("Json for id {} generated: {}", nr.getUid(), json);
+
+		nr.store(new File(datadir));
 	}
 }
