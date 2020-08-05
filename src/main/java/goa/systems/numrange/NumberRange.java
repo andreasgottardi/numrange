@@ -21,7 +21,7 @@ public class NumberRange {
 	private String uid;
 
 	@Expose(serialize = true, deserialize = true)
-	private int currentnumber;
+	private long currentnumber;
 
 	@Expose(serialize = true, deserialize = true)
 	private List<String> accesstokens;
@@ -47,7 +47,7 @@ public class NumberRange {
 		this.uid = uid;
 	}
 
-	public int getCurrentnumber() {
+	public long getCurrentnumber() {
 		return currentnumber;
 	}
 
@@ -85,8 +85,12 @@ public class NumberRange {
 		}
 	}
 
-	public synchronized int getNewNumber() {
-		this.currentnumber++;
+	public synchronized long getNewNumber() {
+		return getNewNumbers(1);
+	}
+
+	public synchronized long getNewNumbers(long nrofnrs) {
+		this.currentnumber += nrofnrs;
 		store();
 		return this.currentnumber;
 	}
