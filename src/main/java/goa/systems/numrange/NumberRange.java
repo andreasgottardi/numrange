@@ -85,7 +85,7 @@ public class NumberRange {
 		}
 	}
 
-	public synchronized long getNewNumber() {
+	public long getNewNumber() {
 		return getNewNumbers(1);
 	}
 
