@@ -9,6 +9,11 @@ version = '0.0.1'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
+ext {
+	/* The version to include in this project. */
+	reactmajorversion = 16
+}
+
 repositories {
 	mavenCentral()
 }
@@ -33,4 +38,21 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+task downloadReact {
+	group = 'React'
+	description = 'Downloads react to the local workspace.'
+
+	doLast {
+		def f = new File(rootProject.projectDir.absolutePath + '/src/main/resources/static/react.production.min.js')
+		if (!f.exists()) {
+			new URL('https://unpkg.com/react@' + reactmajorversion + '/umd/react.production.min.js').withInputStream{ i -> f.withOutputStream{ it << i }}
+		}
+
+		f = new File(rootProject.projectDir.absolutePath + '/src/main/resources/static/react-dom.production.min.js')
+		if (!f.exists()) {
+			new URL('https://unpkg.com/react-dom@' + reactmajorversion + '/umd/react-dom.production.min.js').withInputStream{ i -> f.withOutputStream{ it << i }}
+		}
+	}
 }

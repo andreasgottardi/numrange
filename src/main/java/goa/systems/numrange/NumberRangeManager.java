@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,5 +72,9 @@ public class NumberRangeManager {
 		} else {
 			return mthis;
 		}
+	}
+
+	public Set<String> getRanges() {
+		return this.numberranges.keySet();
 	}
 }
