@@ -1,6 +1,6 @@
 'use strict';
 
-class rangelist extends React.Component {
+class Rangelist extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -17,17 +17,23 @@ class rangelist extends React.Component {
 		).catch(console.log)
 	}
 	
-	
+	renderRange(listValue){
+		return React.createElement("div", {key: "range_" + listValue, className: 'range'}, [
+				React.createElement("p", {key: "p_" + listValue}, listValue),
+				React.createElement("form", {key: "form_" + listValue}, [
+					React.createElement("input", {key: "form_" + listValue}),
+					React.createElement("input", {key: "form_" + listValue, type: 'submit'})
+				])
+			]
+		);
+	}
 	
 	generateResult() {
 		return React.createElement("div", {key: 'userslist', id: 'userlist'},
 			this.state.ranges.map(
-				function(listValue){
-					return React.createElement("div", {key: "range_" + listValue, className: 'range'}, [
-						React.createElement("p", {key: "p_" + listValue, className: 'asdf'}, listValue)
-						]
-					);
-				}
+				(rangeguid)=>(
+						this.renderRange(rangeguid)
+				)
 			)
 		);
 	}
@@ -42,6 +48,6 @@ class rangelist extends React.Component {
 }
 
 ReactDOM.render(
-		React.createElement(rangelist, {id: 'rangelist', key: 'rangelist'}),
+		React.createElement(Rangelist, {id: 'rangelist', key: 'rangelist'}),
 		document.getElementById('content')
 );
