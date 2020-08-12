@@ -9,7 +9,7 @@ class Rangelist extends React.Component {
 		}
 	}
 	
-	componentDidMount() {
+	fetchChanges() {
 		fetch('/getranges').then(res => res.json()).then(
 			(data) => {
 				this.setState({ ranges: data })
@@ -17,12 +17,30 @@ class Rangelist extends React.Component {
 		).catch(console.log)
 	}
 	
+	fetchCurrentNumber(uid) {
+		var curnum = ""
+		fetch("/getcurrentnumber?uid=" + uid).then(res => res.text()).then(
+			(data) => {
+				curnum += data
+			}
+		).catch(console.log)
+		return React.createElement("label", {key: "label_" + uid}, "Current number: " + curnum);
+	}
+
+	componentDidMount() {
+		this.fetchChanges()
+	}
+	
 	renderRange(listValue){
 		return React.createElement("div", {key: "range_" + listValue, className: 'range'}, [
-				React.createElement("p", {key: "p_" + listValue}, listValue),
-				React.createElement("form", {key: "form_" + listValue}, [
-					React.createElement("input", {key: "form_" + listValue}),
-					React.createElement("input", {key: "form_" + listValue, type: 'submit'})
+				React.createElement("form", {key: "form_" + listValue, class: 'form-inline'}, [
+					React.createElement("label", {key: "label_" + listValue}, "Range id:"),
+					React.createElement("label", {key: "label_" + listValue}, listValue),
+					React.createElement("label", {key: "label_" + listValue}, "Request"),
+					React.createElement("input", {key: "input_" + listValue}),
+					React.createElement("label", {key: "label_" + listValue, style: {marginLeft: "0px"}}, "new number(s): "),
+					React.createElement("button", {key: "button_" + listValue}, "Request"),
+					this.fetchCurrentNumber(listValue)
 				])
 			]
 		);

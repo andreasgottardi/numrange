@@ -1,24 +1,49 @@
 <!DOCTYPE html>
 <html lang="de">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Ranges</title>
-		<script src="/react.production.min.js"></script>
-		<script src="/react-dom.production.min.js"></script>
-		<link rel="icon" href="/favicon.ico" type="image/x-icon">
-		<style type="text/css">
-			* {
-				font-family: sans-serif;
-			}
-			
-			.range {
-				
-			}
-		</style>
-	</head>
-	<body>
-		<h1 id="title">Ranges</h1>
-		<div id="content"></div>
-		<script src="react.js"></script>
-	</body>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Ranges</title>
+	<script src="/react.production.min.js"></script>
+	<script src="/react-dom.production.min.js"></script>
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<style type="text/css">
+		* {
+			font-family: sans-serif;
+		}
+
+		.form-inline {
+			display: flex;
+			flex-flow: row wrap;
+			align-items: center;
+		}
+
+		.form-inline label {
+			margin: 5px 10px 5px 16px;
+		}
+
+		.form-inline input {
+			vertical-align: middle;
+			margin: 5px 10px 5px 0;
+			width: 2em;
+			padding: 10px;
+			background-color: #fff;
+			border: 1px solid #ddd;
+		}
+
+		.form-inline button {
+			padding: 10px 20px;
+			background-color: dodgerblue;
+			border: 1px solid #ddd;
+			color: white;
+		}
+	</style>
+</head>
+
+<body>
+	<h1 id="title">Ranges</h1>
+	<div id="content"></div>
+	<script src="react.js"></script>
+</body>
+
 </html>
